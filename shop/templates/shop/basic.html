@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+	<title>{%block title%} {% endblock %}</title>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="position: -webkit-sticky; z-index: 100;height: 8vh; position: sticky; overflow: -moz-hidden-unscrollable; top: 0px;">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/shop">My Awesome Cart</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link active" id = 'homepage' aria-current="page" href="/shop">Home</a></li>
+					<li class="nav-item"><a class="nav-link" id = 'aboutpage' href='/shop/about'> About Us </a></li>
+					<li class="nav-item"><a class="nav-link" id = 'trackerpage' href='/shop/tracker'> Tracker </a></li>
+					<li class="nav-item"><a class="nav-link" id = 'contactpage' href='/shop/contact'> Contact Us </a></li>
+				</ul>
+				<form class="d-flex">
+					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success" type="submit">Search</button>
+				</form>
+				
+				<button type="button" id = 'popcart' class="btn btn-secondary mx-2" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="asdfsafs">
+					Cart(<span id= "cart">0</span>)
+				</button>
+			</div>
+		</div>
+	</nav>
+
+	{% block body %} {% endblock %}
+	<!-- My JS code -->
+	<!-- Optional JavaScript; choose one of the two! -->
+	<!-- Option 1: Bootstrap Bundle with Popper -->
+	
+	<!-- Option 2: Separate Popper and Bootstrap JS -->
+    
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+<script>
+
+	// Initialisation Starts
+	// Creating localstorage, cart on basis of availability
+	var cart = {};
+	if (localStorage.getItem('cart') == null)
+		localStorage.setItem('cart', JSON.stringify(cart));
+	else
+		cart = JSON.parse(localStorage.getItem('cart'));
+	//for fetching and changing buttons in the cart
+	Object.keys(cart).forEach(item => {
+		if (document.getElementById('div' + item) == null)
+			return;
+		document.getElementById('div' + item).innerHTML =
+			`<button id = "-${item}" class="btn btn-primary minus col fw-bolder"> - </button>
+		<span id = 'val${item}' class = "fw-bolder"> ${cart[item][0]} </span>
+		<button id = "+${item}" class="btn btn-primary plus col fw-bolder"> + </button>`;
+	})
+	// Initialisation Ends
+
+	var popcart = document.getElementById('popcart')
+	let popper = new bootstrap.Popover(popcart,
+		{
+			trigger: 'click',
+			sanitize: false,
+			content: `<div id = 'popcartcontent'>Nothing added in the cart </div>`,
+			html: true
+		})
+	//for updating cart from localsotrage
+	function updateCart() {
+		console.log('cart updated');
+		//for displaying the total items in the cart
+		let sum = 0
+		Object.values(cart).forEach(function (element) {
+			sum += element[0];
+		});
+		document.getElementById('cart').innerHTML = sum;
+		localStorage.setItem('cart', JSON.stringify(cart));
+
+		//updating popcart
+		if (document.getElementById('popcartcontent') != null) {
+			let popStr = "";
+			popStr = popStr + "<h5> Cart for your items in my shopping cart </h5><div class='mx-2 my-2'>";
+			var i = 1;
+			for (var item in cart) {
+				popStr = popStr + "<b>" + i + "</b>. ";
+				popStr = popStr + cart[item][1] + "...<i> Qty: " + cart[item][0] + '</i><br>';
+				i = i + 1;
+			}
+			popStr = popStr + "</div>"
+			document.getElementById('popcart').setAttribute('data-content', popStr);
+			console.log(popStr);
+			popStr += ` <br> <a href = "/shop/checkout/" <button id = 'checkout' class="btn btn-primary mx-2">Checkout</button> </a>
+						<button id = 'clearcart' class="btn btn-primary mx-2" onclick = "localStorage.clear();location.reload();">Clear Cart</button>`;
+
+			document.getElementById('popcartcontent').innerHTML = popStr;
+		}
+	}
+	document.getElementById("popcart").addEventListener('click', () => {
+		updateCart();
+	})
+	updateCart();
+</script>
+	
+	{% block js %} {% endblock %}
+
+</body>
+</script>
+
+</body>
+</html>

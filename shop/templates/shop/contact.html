@@ -1,0 +1,40 @@
+{% extends 'shop/basic.html' %}
+
+{%block title%} Contact Us {% endblock %}
+{%block body%} 
+
+<div class="container my-4">
+    <h1>Contact Us</h1>
+    <br>
+    <form action="/shop/contact/" method="POST"> {% csrf_token %}
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input required name="name" type="text" class="form-control" id="name" placeholder="Write your Name here">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email address</label>
+            <input required name="email" type="email" class="form-control" id="email"
+                placeholder="Write your Email address here">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            <input required name="phone" type="tel" class="form-control" id="phone"
+                placeholder="Write Your Phone Number here">
+        </div>
+    
+        <div class="mb-3">
+            <label for="desc" class="form-label">Write your query here</label>
+            <textarea name="query" class="form-control container" id="exampleFormControlTextarea1" rows="10"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+
+
+{%endblock%}
+{% block js %} 
+<script>
+    document.getElementById('contactpage').classList.add('active');
+    document.getElementById('homepage').classList.remove('active');
+</script>
+{%endblock%}

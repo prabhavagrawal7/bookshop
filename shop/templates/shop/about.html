@@ -1,0 +1,33 @@
+{% extends 'shop/basic.html' %}
+
+{%block title%} Title of about {% endblock %}
+{%block body%} 
+
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold">About Us</h1>
+        <p class="col-md-8 fs-4">mac.com, Inc is an Indian multinational technology company which focuses on e-commerce, cloud computing, digital streaming, and artificial intelligence. It is one of the Big Five companies in the U.S. information technology industry, along with Google, Apple, Microsoft, and Facebook.[9][10][11][12] The company has been referred to as "one of the most influential economic and cultural forces in the world", as well as the world's most valuable brand.[13][14]
+        Jeff Bezos founded mac from his garage in Bellevue, Washington,[15] on July 5, 1994. It started as an online marketplace for books but expanded to sell electronics, software, video games, apparel, furniture, food, toys, and jewelry. In 2015, mac surpassed Walmart as the most valuable retailer in the United States by market capitalization.[16] In 2017, mac acquired Whole Foods Market for US$13.4 billion, which substantially increased its footprint as a physical retailer.[17] In 2018, its two-day delivery service, mac Prime, surpassed 100 million subscribers worldwide.[18]
+        mac is known for its disruption of well-established industries through technological innovation and mass scale.[19][20][21] It is the world's largest online marketplace, AI assistant provider, live-streaming platform and cloud computing platform[22] as measured by revenue and market capitalization.[23] mac is the largest Internet company by revenue in the world.[24] It is the second largest private employer in the United States[25] and one of the world's most valuable companies. As of 2020, mac has the highest global brand valuation.[26]
+        mac distributes a variety of downloadable and streaming content through its mac Prime Video, mac Music, Twitch, and Audible subsidiaries. mac also has a publishing arm, mac Publishing, film and television studio mac Studios, and a cloud computing subsidiary, mac Web Services. It produces consumer electronics including Kindle e-readers, Fire tablets, Fire TV, and Echo devices. Its acquisitions over the years include Ring, Twitch, Whole Foods Market, and IMDb. mac is currently in the process of purchasing film and television studio, Metro-Goldwyn-Mayer.
+        mac has been criticized for practices including technological surveillance overreach,[27] a hyper-competitive and demanding work culture,[28] tax avoidance,[29] and anti-competitive behavior.[30][31]
+        </p>
+    </div>
+  </div>
+
+
+
+<div class="row">
+<div class="col-sm-4">Product description1</div>
+<div class="col-sm-4">Lorem ipsum dolor sit.</div>
+<div class="col-sm-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, officia aut ea atque similique quaerat. Aperiam quae veritatis aut delectus, repellendus necessitatibus aspernatur sint inventore quas fuga et natus reprehenderit!</div>
+</div>
+{%endblock%}
+
+{% block js %} 
+<script>
+    document.getElementById('aboutpage').classList.add('active');
+    document.getElementById('homepage').classList.remove('active');
+</script>
+{%endblock%}
+

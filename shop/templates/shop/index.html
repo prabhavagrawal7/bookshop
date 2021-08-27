@@ -1,0 +1,112 @@
+{%extends 'shop/basic.html'%}
+{% block title %} Shop Home Page {% endblock %}
+{% block body %}
+	<!-- Carousel start -->
+{% for products, range, slides in allProds %}
+<div id="fulldiv{{forloop.counter}}" style="height: 92vh; margin: 0%; padding: 0%;">
+<div class="shadow p-3 mb-5 bg-black"><h3 style="color: aliceblue;">Flash sale on Recommended Items - {{products.0.category}}</h3></div>
+<div id="carouselExampleDark{{forloop.counter}}" class="carousel carousel-dark slide" data-bs-ride="carousel">
+	<div class="carousel-indicators">
+		<button type="button" data-bs-target="#carouselExampleDark{{forloop.counter}}" data-bs-slide-to="0" class="active" aria-current="true"></button>
+		{% for i in range %}
+		<button type="button" data-bs-target="#carouselExampleDark{{forloop.parentloop.counter}}" data-bs-slide-to="{{i}}"></button>
+		{% endfor %}
+	</div>
+
+	<div class="carousel-inner container">
+		<div class="carousel-item active"><div class="card-group" style="height: 70vh;">
+		{% for i in products %}	
+			<div class="card">
+				<img src="/media/{{i.image}}" class="card-img-top" style=" height: 300px; object-fit: scale-down;">
+				<div class="card-body">
+					<h5 class="card-title" id = "namepr{{i.id}}">
+						{% if i.product_name|length >= 50 %}
+						{{i.product_name|slice:"0:50"}}... 
+						{% else %}
+						{{i.product_name}}
+						{% endif %}
+					</h5>
+
+					<p class="card-text">{{i.category}}</p>
+					<p class="card-text"><small class="text-muted">{{i.subcategory}}</small></p>
+					<div class="row justify-content-evenly">
+					<span id = divpr{{i.id}} class="divpr col mx-2"> <button id = "pr{{i.id}}" class="btn btn-primary cart">Add to cart</button> </span>
+					<a href="/shop/products/{{i.id}}" id = "qv{{i.id}}" class="btn btn-primary col mx-2">Quick View</a>
+					</div>
+				</div>
+			</div>
+		{% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+		</div></div>
+		<div class="carousel-item"><div class="card-group" style="height: 70vh;">
+
+		{% endif %}
+		{% endfor %}	
+		</div></div>
+	</div>
+
+	<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark{{forloop.counter}}" data-bs-slide="prev" style="width:10%">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	</button>
+	<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark{{forloop.counter}}" data-bs-slide="next" style="width:10%">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+	</button>
+</div>
+</div>
+{% endfor %}
+	
+<!-- Carousel End -->
+<h1>Hello, world!</h1>
+
+<h1>Shop post</h1>
+{%load static%}
+<a href="{% static 'shop/statictext.txt' %}">Static text</a>
+<br>
+{% endblock %}
+
+{% block js %}
+<script>
+
+	// updating cart everytime when page is reloaded
+
+	//adding items to the cart.. more functionality added lateron
+	$('.divpr').on('click', 'button.cart', function () {
+		let item = this.id;
+					if (cart[item] != undefined) {
+			cart[item][0] += 1;
+		}			
+		else {
+			name = document.getElementById('name' + item).innerText;
+			cart[item] = [1, name];
+		}
+		document.getElementById('div' + item).innerHTML =
+			`<button id = "-${item}" class="btn btn-primary minus col fw-bolder"> - </button>
+		<span id = 'val${item}' class = "fw-bolder"> ${cart[item][0]} </span>
+		<button id = "+${item}" class="btn btn-primary plus col fw-bolder"> + </button>`;
+		updateCart();
+	})
+
+	//managing + & - buttons
+	$('.divpr').on('click', "button.minus", function () {
+		let item = this.id.slice(1,)
+		//cart updation logic
+		cart[item][0] -= 1;
+		if (cart[item][0] <= 0) {
+			document.getElementById('div' + item).innerHTML = `<button id = "${item}" class="btn btn-primary cart">Add to cart</button>`;
+			delete cart[item];
+		}
+		else
+			document.getElementById('val' + item).innerText = cart[item][0];
+		updateCart();
+	})
+	$('.divpr').on('click', "button.plus", function () {
+		let item = this.id.slice(1,)
+		//cart updation logic
+		cart[item][0] += 1;
+		document.getElementById('val' + item).innerText = cart[item][0];
+		updateCart();
+	})
+
+
+
+</script>
+{% endblock %}

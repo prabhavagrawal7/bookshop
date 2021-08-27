@@ -1,0 +1,22 @@
+{% extends 'shop/basic.html' %}
+
+{%block title%}Products{% endblock %}
+{%block body%} 
+<br>
+<div class="row">
+    <div class="col-sm-4">
+        <img src="/media/{{product.image}}" alt="">
+    </div>
+    <div class="col-sm-8">
+         <h2 style="color: maroon;">{{product.product_name}}</h6>
+
+        <span id="passwordHelpBlock" class="form-text">Price :- </span> <h6 style="color: maroon;">₹  {{product.price}}</h6>
+        <hr>
+        <h4>Product Description</h4>
+        {{product.desc}}
+         
+    </div>
+
+</div>
+
+{%endblock%}
