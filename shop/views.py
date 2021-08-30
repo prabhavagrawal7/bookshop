@@ -24,6 +24,7 @@ def about(request):
 
 
 def contact(request):
+    thanks = False
     if(request.method == 'POST'):
         name = request.POST.get('name', '')
         phone = request.POST.get('phone', '')
@@ -32,7 +33,7 @@ def contact(request):
         contact = Contact(name=name, phone=phone, email=email, query=query)
         contact.save()
 
-    return render(request, 'shop/contact.html')
+    return render(request, 'shop/contact.html', {'thanks':thanks})
 
 
 def tracker(request):
@@ -40,18 +41,20 @@ def tracker(request):
         orderId = request.POST.get('orderId', '')
         email = request.POST.get('email', '')
         try:
-            orders = Order.objects.filter(id=orderId, email=email)
-            if len(orders) > 0:
+            order = Order.objects.filter(id=orderId, email=email)
+            if len(order) > 0:
                 update = OrderUpdate.objects.filter(order_id=orderId)
                 updates = []
                 for item in update:
-                    updates.append({'text': item.update_desc, 'time': item.timestamp})
-                    response = json.dumps(updates, default=str)
+                    updates.append(
+                        {'text': item.update_desc, 'time': item.timestamp})
+                    response = json.dumps(
+                        [updates, order[0].items_json], default=str)
                 return HttpResponse(response)
             else:
                 return HttpResponse('{}')
         except Exception as e:
-            return HttpResponse('{}')
+            return HttpResponse("e")
 
     return render(request, 'shop/tracker.html')
 
@@ -73,19 +76,17 @@ def checkout(request):
         email = request.POST.get('email', '')
         city = request.POST.get('city', '')
         state = request.POST.get('state', '')
-        address = request.POST.get('address1', '') + \
-            request.POST.get('address2', '')
+        address = f"{request.POST.get('address1')}, {request.POST.get('address2', '')}"
         zip_code = request.POST.get('zip_code', '')
 
-        
         order = Order(items_json=items_json, name=name, email=email, address=address,
                       city=city, state=state, zip_code=zip_code, phone=phone)
         order.save()
         update = OrderUpdate(
             order_id=order.id, update_desc="The Order has been placed")
         update.save()
-        return render(request, 'shop/checkout.html', {'thank': True, 'id': order.id})
-    return render(request, 'shop/checkout.html', {'thank': False})
+        return render(request, 'shop/checkout.html', {'thanks': True, 'id': order.id})
+    return render(request, 'shop/checkout.html', {'thanks': False})
 
 
 """
@@ -108,4 +109,5 @@ def checkout(request):
     print('description')
     category, subcategory = input().split()
     myprod = Product(product_name = product_name, category = category, subcategory = subcategory, price = price, desc = f"{rating} out of 5⭐", pub_date = timezone.now(), image = photo)
-    myprod.save()"""
+    myprod.save()
+"""

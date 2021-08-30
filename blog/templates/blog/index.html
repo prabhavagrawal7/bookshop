@@ -1,29 +1,68 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends 'shop/basic.html'%}
+{% block title %} {%endblock%}
+{%block body%}
+<div class="container mt-3"><div class="row mb-2">
+	<center><h1>blog.title</h1></center>
+<div class="col-md-4">
+	<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+		<div class="col p-4 d-flex flex-column position-static">
+			<strong class="d-inline-block mb-2 text-primary">Design</strong>
+			<h3 class="mb-0">blog.head0</h3>
+			<div class="mb-1 text-muted">blog.pub_date</div>
+			<p class="mb-auto">blog.chead0</p>
+			<a href="#" class="stretched-link">Continue reading</a>
+		</div>
+		<div class="col-auto d-none d-lg-block">
+			<svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img"
+				aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+				<title>Placeholder</title>
+				<rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
+					dy=".3em">Thumbnail</text>
+			</svg>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+		</div>
+	</div>
+</div>
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
-    <h1>Blog post</h1>
-    {%load static%}
-    <a href="{%static 'blog/statictext.txt' %}">text </a>
+<div class="col-md-4">
+	<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+		<div class="col p-4 d-flex flex-column position-static">
+			<strong class="d-inline-block mb-2 text-primary">Design</strong>
+			<h3 class="mb-0">blog.head1</h3>
+			<div class="mb-1 text-muted">blog.pub_date</div>
+			<p class="mb-auto">blog.chead1</p>
+			<a href="#" class="stretched-link">Continue reading</a>
+		</div>
+		<div class="col-auto d-none d-lg-block">
+			<svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img"
+				aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+				<title>Placeholder</title>
+				<rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
+					dy=".3em">Thumbnail</text>
+			</svg>
 
-    <!-- Optional JavaScript; choose one of the two! -->
+		</div>
+	</div>
+</div>
+<div class="col-md-4">
+	<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+		<div class="col p-4 d-flex flex-column position-static">
+			<strong class="d-inline-block mb-2 text-primary">Design</strong>
+			<h3 class="mb-0">blog.head2</h3>
+			<div class="mb-1 text-muted">blog.pub_date</div>
+			<p class="mb-auto">blog.chead2</p>
+			<a href="#" class="stretched-link">Continue reading</a>
+		</div>
+		<div class="col-auto d-none d-lg-block">
+			<svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" 
+				aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+				<title>Placeholder</title>
+				<rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
+					dy=".3em">Thumbnail</text>
+			</svg>
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-    -->
-  </body>
-</html>
+		</div>
+	</div>
+</div>
+</div></div>
+{% endblock %}

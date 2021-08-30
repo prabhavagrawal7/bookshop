@@ -3,10 +3,10 @@
 {% block body %}
 	<!-- Carousel start -->
 {% for products, range, slides in allProds %}
-<div id="fulldiv{{forloop.counter}}" style="height: 92vh; margin: 0%; padding: 0%;">
+<div id="fulldiv{{forloop.counter}}" style="height: 92vh; margin: 0%; padding: 0%; overflow: -moz-hidden-unscrollable;">
 <div class="shadow p-3 mb-5 bg-black"><h3 style="color: aliceblue;">Flash sale on Recommended Items - {{products.0.category}}</h3></div>
 <div id="carouselExampleDark{{forloop.counter}}" class="carousel carousel-dark slide" data-bs-ride="carousel">
-	<div class="carousel-indicators">
+	<div class="carousel-indicators" style="bottom: -7vh;">
 		<button type="button" data-bs-target="#carouselExampleDark{{forloop.counter}}" data-bs-slide-to="0" class="active" aria-current="true"></button>
 		{% for i in range %}
 		<button type="button" data-bs-target="#carouselExampleDark{{forloop.parentloop.counter}}" data-bs-slide-to="{{i}}"></button>
@@ -17,17 +17,19 @@
 		<div class="carousel-item active"><div class="card-group" style="height: 70vh;">
 		{% for i in products %}	
 			<div class="card">
-				<img src="/media/{{i.image}}" class="card-img-top" style=" height: 300px; object-fit: scale-down;">
+				<img src="/media/{{i.image}}" class="card-img-top" style=" height: 200px; object-fit: scale-down;">
 				<div class="card-body">
-					<h5 class="card-title" id = "namepr{{i.id}}">
-						{% if i.product_name|length >= 50 %}
-						{{i.product_name|slice:"0:50"}}... 
+					
+					<h4 class="card-title" id = "namepr{{i.id}}" style="height: 4rem; overflow: hidden;">
+						{% if i.product_name|length >= 47 %}
+						{{i.product_name|slice:"0:47"}}... 
 						{% else %}
 						{{i.product_name}}
 						{% endif %}
-					</h5>
+					</h4>
 
 					<p class="card-text">{{i.category}}</p>
+					<h5><p class="card-text fw-bolder">₹<span id = "pricepr{{i.id}}">{{i.price}}</span></p></h5>
 					<p class="card-text"><small class="text-muted">{{i.subcategory}}</small></p>
 					<div class="row justify-content-evenly">
 					<span id = divpr{{i.id}} class="divpr col mx-2"> <button id = "pr{{i.id}}" class="btn btn-primary cart">Add to cart</button> </span>
@@ -76,7 +78,8 @@
 		}			
 		else {
 			name = document.getElementById('name' + item).innerText;
-			cart[item] = [1, name];
+			price = parseInt(document.getElementById('price' + item).innerText);
+			cart[item] = [1, name, price];
 		}
 		document.getElementById('div' + item).innerHTML =
 			`<button id = "-${item}" class="btn btn-primary minus col fw-bolder"> - </button>
@@ -105,8 +108,6 @@
 		document.getElementById('val' + item).innerText = cart[item][0];
 		updateCart();
 	})
-
-
 
 </script>
 {% endblock %}
