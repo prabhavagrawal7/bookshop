@@ -32,15 +32,14 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     </div>
-
-
 {%endblock%}
+
 {% block js %} 
 <script>
-    {% if thanks %}
+    // {% if thanks %}
 	alert('Thanks for contacting Us, we will reach you soon with our support!!');
 	document.location = '/shop/contact/';
-	{% endif %}
+	// {% endif %}
 	
 </script>
 {%endblock%}
