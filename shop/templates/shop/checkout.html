@@ -16,6 +16,7 @@
 			<label for="inputEmail4" class="form-label">Name</label>
 			<input required name="name" type="text" class="form-control" id="inputName">
 			<input type="hidden" name="items_json" id="items_json">
+			<input type="hidden" name="amount" id="amount">
 		</div>
 		<div class="col-md-6">
 			<label for="email" class="form-label">Email</label>
@@ -58,20 +59,25 @@
 	
 	
 	$("#items_json").val(JSON.stringify(cart));
-	{% if thanks %}
+	// {% if thanks %}
 	alert('Thanks for ordering with us. Your ORDER ID is {{id}}. Use it to track your order using our order tracker');
 	console.log(cart);
 	document.location = '/shop/';
 	localStorage.clear();
-	{% endif %}
+	// {% endif %}
 	
 	document.getElementById('homepage').classList.remove('active');
 	var sum = 0;
 	var totalPrice = 0;	
 	if ($.isEmptyObject(cart)) {
 		// if object is empty
-		mystr = "Your cart is Empty, please add some items to your cart before checking out!"
-		$('#items').append(mystr);
+		mystr = "Your cart is <b>Empty</b>. Please <b>add</b> some <b>items<b> to check out!"
+		// $('#items').append(mystr);
+
+		laststr = `	<button type="button" disabled class="list-group-item list-group-item-action active" aria-current="true">
+					${mystr}</button>`;
+					$('#items').append(laststr);
+		// document.getElementsByClassName('list-group-item')[0].val =  mystr;
 		$('.form-control').attr("disabled", true);
 		$('.btn-primary').attr("disabled", true);
 
@@ -90,16 +96,14 @@
 				<span class="badge bg-primary border-radius rounded-pill">${qty}</span>
 				</li>`;
 			$('#items').append(mystr);
+			$("#amount").val(totalPrice);
 		}
-		
-	}
-
-
-
-	
-	laststr = `	<button type="button" disabled class="list-group-item list-group-item-action active" aria-current="true">
+		laststr = `	<button type="button" disabled class="list-group-item list-group-item-action active" aria-current="true">
 					Your Cart Total is<b> Rs. <span id="totalPrice" style="margin: 0%; padding: 0%;">${totalPrice}</b></span>. Thanks for using My Awesome Cart </button>`;
 					$('#items').append(laststr);
+	}
+	
+	
 
 
 	

@@ -1,11 +1,13 @@
-{% extends 'shop/basic.html'%} {% block title %} {%endblock%} {%block body%}
-<div class="container my-4">
+{% extends 'blog/basic.html'%} 
+{% block title %} blogpost {%endblock%}
+{%block body%}
+<div class="container my-2">
     <div class="row g-5">
         <div class="col-md-8">
-            <h3 class="pb-4 mb-4 fst-italic border-bottom">
+            <h1 class="">
                 {{post.title}}
-            </h3>
-
+            </h1>
+            <div class="fb-like mb-2" data-href="http://127.0.0.1:8000/blog/blogpost/{post.post_id}" data-width="" data-layout="standard" data-action="like" data-size="large" data-share="true"></div>
             <article class="blog-post">
                 <h2 class="blog-post-title">{{post.head0}}</h2>
                 <p class="blog-post-meta">{{post.pub_date}}by <a href="#">Mark</a></p>
@@ -20,6 +22,8 @@
                 <p>{{post.chead2}}</p>
 
             </article>
+            <center><div class="fb-comments" data-href="http://127.0.0.1:8000/blog/blogpost/{{post.post_id}}" data-width="700" data-numposts="5"></div></center>
+        
         </div>
         <div class="col-md-4">
             <div class="position-sticky" style="top: 2rem;">
@@ -40,4 +44,18 @@
         </div>
     </div>
 </div>
+<div class="d-flex justify-content-around">
+    <div id="prev"><a href="#"> <- Previous Post</a></div>
+    <div id="next"><a href="#">Next Post -></div>
+</div>
+{% endblock %}
+{%block js%}
+<script>
+    document.getElementById('prev').addEventListener('click', function(){
+        window.location = parseInt(`{{post.post_id}}`)-1;
+    })
+    document.getElementById('next').addEventListener('click', function(){
+        window.location = parseInt(`{{post.post_id}}`)+1;
+    })
+</script>
 {% endblock %}

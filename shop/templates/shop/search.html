@@ -1,6 +1,12 @@
 {%extends 'shop/basic.html'%}
 {% block title %} Shop Home Page {% endblock %}
 {% block body %}
+<script>
+// {% if msg or query|length < 4%}
+    window.alert("Please make sure to enter relevent search query")
+    window.location = "/shop";
+// {% endif %}
+</script>
 	<!-- Carousel start -->
 {% for products, range, slides in allProds %}
 <div id="fulldiv{{forloop.counter}}" style="height: 92vh; margin: 0%; padding: 0%; overflow: -moz-hidden-unscrollable;">
@@ -104,4 +110,5 @@
 	})
 
 </script>
+
 {% endblock %}
